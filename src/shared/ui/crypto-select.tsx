@@ -11,6 +11,7 @@ import {
   CommandItem,
 } from '../shadcn-ui/command';
 import { Button } from '../shadcn-ui/button';
+import { ScrollArea } from '../shadcn-ui/scroll-area';
 import { cn } from '../lib/utils';
 import { Coin } from '@/entities/coin/types';
 
@@ -37,29 +38,34 @@ export function CryptoSelect({ coins, selected, onSelect }: CryptoSelectProps) {
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0">
-          <Command>
+        <PopoverContent
+          align="end"
+          className="w-full p-0 max-h-60 overflow-visible z-50"
+        >
+          <Command className="flex flex-col">
             <CommandInput placeholder="Search coin..." />
             <CommandEmpty>No coins found.</CommandEmpty>
-            <CommandGroup>
-              {coins.map((coin) => (
-                <CommandItem
-                  key={coin.id}
-                  onSelect={() => {
-                    onSelect(coin.id);
-                    setOpen(false);
-                  }}
-                >
-                  <Check
-                    className={cn(
-                      'mr-2 h-4 w-4',
-                      selected?.id === coin.id ? 'opacity-100' : 'opacity-0'
-                    )}
-                  />
-                  {coin.symbol} - {coin.name}
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            <ScrollArea className="max-h-48 overflow-y-auto">
+              <CommandGroup>
+                {coins.map((coin) => (
+                  <CommandItem
+                    key={coin.id}
+                    onSelect={() => {
+                      onSelect(coin.id);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        'mr-2 h-4 w-4',
+                        selected?.id === coin.id ? 'opacity-100' : 'opacity-0'
+                      )}
+                    />
+                    {coin.symbol} - {coin.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </ScrollArea>
           </Command>
         </PopoverContent>
       </Popover>

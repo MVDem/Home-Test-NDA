@@ -7,7 +7,9 @@ export const InformationSection = observer(() => {
   return (
     <div className="min-h-16 flex justify-between items-center ">
       <div className="text-xs text-white pl-4">{`Estimated rate:
-                  1 ${store.fromCoin?.symbol} ~ ${store.rate} ${store.toCoin?.symbol}`}</div>
+                  1 ${store.fromCoin?.symbol} ~ ${store.rate?.toFixed(5)} ${
+        store.toCoin?.symbol
+      }`}</div>
       <button
         onClick={() => store.reverseCoins()}
         className="h-8 w-8 flex items-center justify-center rounded bg-[#3e3f57] transition"
